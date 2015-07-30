@@ -1,4 +1,5 @@
 #!/bin/bash
 adb reverse tcp:8888 tcp:80 && \
 adb forward tcp:4444 localabstract:/adb-hub && \
-adb connect localhost:4444
+adb connect localhost:4444 && \
+adb devices

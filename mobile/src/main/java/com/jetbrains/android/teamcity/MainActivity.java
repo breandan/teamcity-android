@@ -1,12 +1,14 @@
 package com.jetbrains.android.teamcity;
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.jetbrains.android.teamcity.rest.RestClient;
+import com.jetbrains.android.teamcity.rest.Builds;
 
 import java.util.List;
 
@@ -15,39 +17,13 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.http.GET;
-import retrofit.mime.TypedByteArray;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements ItemFragment.OnFragmentInteractionListener {
 
-    private static final String API_URL = "http://localhost:8888/app/rest";
 
-    static class Builds {
-        List<Build> build;
+    @Override
+    public void onFragmentInteraction(String id) {
 
-        static class Build {
-            String buildTypeId;
-            String href;
-            int id;
-            int number;
-            String state;
-            String status;
-            String webUrl;
-        }
-
-        @Override
-        public String toString() {
-            String s = "";
-            for (Build build : this.build) {
-                s = s + ", " + build.href + ":" + build.number;
-            }
-
-            return s;
-        }
-    }
-
-    interface TeamCity {
-        @GET("/builds")
-        void build(Callback<Builds> cb);
     }
 
     @Override
@@ -55,18 +31,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ApiRequestInterceptor requestInterceptor = new ApiRequestInterceptor();
-
-        // Create a very simple REST adapter which points the GitHub API endpoint.
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setRequestInterceptor(requestInterceptor)
-                .setEndpoint(API_URL)
-                .build();
-
-        // Create an instance of our GitHub API interface.
-        final TeamCity teamcity = restAdapter.create(TeamCity.class);
-
-        teamcity.build(new Callback<Builds>() {
+        RestClient.get().getBuilds(new Callback<Builds>() {
             @Override
             public void success(Builds builds, Response response) {
                 updateTextView(builds.toString());
@@ -83,6 +48,7 @@ public class MainActivity extends Activity {
         TextView tv = (TextView) findViewById(R.id.text_view);
         tv.setText(s);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
