@@ -3,6 +3,7 @@ package com.jetbrains.android.teamcity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,8 +25,10 @@ public class MainActivity extends Activity {
                 final Button button = (Button) stub.findViewById(R.id.button);
                 button.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "Stop it!", Toast.LENGTH_LONG)
-                                .show();
+                        Toast t = Toast.makeText(getApplicationContext(), "Stop it!", Toast
+                                .LENGTH_LONG);
+                        t.setGravity(Gravity.BOTTOM, 0, 0);
+                        t.show();
                     }
                 });
             }

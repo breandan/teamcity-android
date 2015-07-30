@@ -16,7 +16,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Click It"
+        android:text="Click Me!"
         android:id="@+id/button"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
