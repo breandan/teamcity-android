@@ -83,13 +83,12 @@ public class ItemFragment extends Fragment implements AbsListView.OnItemClickLis
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        mAdapter = new ArrayAdapter<Builds.Build>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, new ArrayList<Builds.Build>());
+        mAdapter = new BuildAdapter(getActivity(),
+                android.R.layout.simple_list_item_1, new ArrayList<Builds.Build>());
 
         RestClient.get().getBuilds(new Callback<Builds>() {
             @Override
             public void success(Builds builds, Response response) {
-                Log.e("", "reached");
                 mAdapter.clear();
                 mAdapter.addAll(builds.build);
             }

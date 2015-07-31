@@ -18,6 +18,19 @@ public class Builds {
         String state;
         String status;
         String webUrl;
+
+        @Override
+        public String toString() {
+            return "Build{" +
+                    "buildTypeId='" + buildTypeId + '\'' +
+                    ", href='" + href + '\'' +
+                    ", id=" + id +
+                    ", number=" + number +
+                    ", state='" + state + '\'' +
+                    ", status='" + status + '\'' +
+                    ", webUrl='" + webUrl + '\'' +
+                    '}';
+        }
     }
 
     @Override
